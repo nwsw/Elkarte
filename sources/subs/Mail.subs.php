@@ -44,6 +44,7 @@ function sendmail($to, $subject, $message, $from = null, $message_id = null, $se
 {
 	global $webmaster_email, $context, $modSettings, $txt, $scripturl, $boardurl;
 
+return true;
 	// Use sendmail if it's set or if no SMTP server is set.
 	$use_sendmail = empty($modSettings['mail_type']) || $modSettings['smtp_host'] == '';
 
