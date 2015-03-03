@@ -54,6 +54,11 @@ function template_options()
 			'default' => true,
 		),
 		array(
+			'id' => 'view_newest_first',
+			'label' => $txt['recent_posts_at_top'],
+			'default' => true,
+		),
+		array(
 			'id' => 'view_newest_pm_first',
 			'label' => $txt['recent_pms_at_top'],
 			'default' => true,
