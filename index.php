@@ -25,6 +25,9 @@ define('FORUM_VERSION', $forum_version);
 // First things first, but not necessarily in that order.
 define('ELK', 1);
 
+// this forum will sometimes change REMOTE_ADDR, so keep the real value here
+define('NWSW_ORIG_SERVER_ADDR', $_SERVER['REMOTE_ADDR']);
+
 // Shortcut for the browser cache stale
 define('CACHE_STALE', '?102');
 
@@ -174,6 +177,9 @@ function elk_main()
 
 	// Load the current user's permissions.
 	loadPermissions();
+
+	// extra nwsw specific permission validations
+	nw_elf_verifyPermissions();
 
 	// Load BadBehavior before we go much further
 	loadBadBehavior();

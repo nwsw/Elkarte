@@ -36,7 +36,7 @@ function cleanRequest()
 	global $boardurl, $scripturl;
 
 	// Makes it easier to refer to things this way.
-	$scripturl = $boardurl . '/index.php';
+	$scripturl = $boardurl . '/';
 
 	// We'll need this fairly badly
 	require_once(SOURCEDIR . '/Request.php');

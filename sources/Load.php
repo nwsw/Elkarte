@@ -71,6 +71,9 @@ function reloadSettings()
 			cache_put_data('modSettings', $modSettings, 90);
 	}
 
+	// this guarantees that our integrations are loaded
+	require_once('/var/www/lib/elktools.inc');
+
 	// Setting the timezone is a requirement for some functions in PHP >= 5.1.
 	if (isset($modSettings['default_timezone']))
 		date_default_timezone_set($modSettings['default_timezone']);

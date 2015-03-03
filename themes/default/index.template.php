@@ -169,9 +169,11 @@ function template_html_above()
 		echo '
 	<link rel="canonical" href="', $context['canonical_url'], '" />';
 
+	//<link rel="shortcut icon" sizes="196x196" href="' . $settings['images_url'] . '/mobile.png" />
+	echo '<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />';
+
 	// Show all the relative links, such as help, search, contents, and the like.
 	echo '
-	<link rel="shortcut icon" sizes="196x196" href="' . $settings['images_url'] . '/mobile.png" />
 	<link rel="help" href="', $scripturl, '?action=help" />
 	<link rel="contents" href="', $scripturl, '" />', ($context['allow_search'] ? '
 	<link rel="search" href="' . $scripturl . '?action=search" />' : '');
@@ -207,7 +209,7 @@ function template_html_above()
 	// A little help for our friends
 	echo '
 	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->';
 
 	echo '
