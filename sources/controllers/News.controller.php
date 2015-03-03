@@ -244,7 +244,7 @@ class News_Controller extends Action_Controller
 			<generator>ElkArte</generator>
 			<ttl>30</ttl>
 			<image>
-				<url>', $settings['default_theme_url'], '/images/logo.png</url>
+				<url>/favicon.png</url>
 				<title>', $feed_title, '</title>
 				<link>', $scripturl, '</link>
 			</image>';
