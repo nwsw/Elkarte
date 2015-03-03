@@ -563,7 +563,7 @@ class Display_Controller
 				});', true);
 			}
 
-			$messages_request = loadMessageRequest($msg_selects, $msg_tables, $msg_parameters);
+			$messages_request = loadMessageRequest($msg_selects, $msg_tables, $msg_parameters, $options);
 
 			if (!empty($modSettings['enableFollowup']))
 			{
@@ -876,7 +876,7 @@ class Display_Controller
 
 		// Remember which message this is.  (ie. reply #83)
 		if ($counter === null || $reset)
-			$counter = empty($options['view_newest_first']) ? $context['start'] : $context['total_visible_posts'] - $context['start'];
+			$counter = empty($options['view_newest_first']) ? $context['start'] : $context['total_visible_posts'] - $context['start'] - 1;
 
 		// Start from the beginning...
 		if ($reset)
