@@ -1751,6 +1751,7 @@ class Search_Controller extends Action_Controller
 		{
 			// Set the number of characters before and after the searched keyword.
 			$charLimit = 50;
+			$ellipsis = '<span class="ellipsis">...</span>';
 
 			$message['body'] = strtr($message['body'], array("\n" => ' ', '<br />' => "\n"));
 			$message['body'] = parse_bbc($message['body'], $message['smileys_enabled'], $message['id_msg']);
@@ -1759,7 +1760,7 @@ class Search_Controller extends Action_Controller
 			if (Util::strlen($message['body']) > $charLimit)
 			{
 				if (empty($context['key_words']))
-					$message['body'] = Util::substr($message['body'], 0, $charLimit) . '<strong>...</strong>';
+					$message['body'] = Util::substr($message['body'], 0, $charLimit) . $ellipsis;
 				else
 				{
 					$matchString = '';
@@ -1781,11 +1782,11 @@ class Search_Controller extends Action_Controller
 					else
 						preg_match_all('/([^\s\W]{' . $charLimit . '}[\s\W]|[\s\W].{0,' . $charLimit . '}?[\s\W]|^)(' . $matchString . ')([\s\W].{0,' . $charLimit . '}[\s\W]|[\s\W][^\s\W]{0,' . $charLimit . '})/isu', $message['body'], $matches);
 
-					$message['body'] = '';
+					$message['body'] = $ellipsis;
 					foreach ($matches[0] as $index => $match)
 					{
 						$match = strtr(htmlspecialchars($match, ENT_QUOTES, 'UTF-8'), array("\n" => '&nbsp;'));
-						$message['body'] .= '<strong>......</strong>&nbsp;' . $match . '&nbsp;<strong>......</strong>';
+						$message['body'] .= $match . $ellipsis;
 					}
 				}
 

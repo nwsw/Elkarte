@@ -210,14 +210,24 @@ function template_topic_listing()
 					</div>
 				</div>
 				<div class="topic_latest">
-					<p class="topic_stats">
-					', $topic['replies'], ' ', $txt['replies'], '<br />
-					', $topic['views'], ' ', $txt['views'];
+					<p class="topic_stats">';
 
-			// Show likes?
-			if (!empty($modSettings['likes_enabled']))
-				echo '<br />
-					', $topic['likes'], ' ', $txt['likes'];
+			switch ($context['sort_by'])
+			{
+				case 'views':
+					echo $topic['views'], ' ', $txt['views'];
+					break;
+				case 'likes':
+					if (!empty($modSettings['likes_enabled']))
+					{
+						echo $topic['likes'], ' ', $txt['likes'];
+						break;
+					}
+					// fall through
+				default:
+					echo $topic['replies'], ' ', $txt['replies'];
+					break;
+			}
 
 			echo '
 					</p>

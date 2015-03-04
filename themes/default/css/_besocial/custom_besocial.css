@@ -2,6 +2,10 @@ body {
 	font-family: Georgia, Verdana, sans-serif;
 }
 
+.postarea .inner,.core_posts .inner, .topic_body {color:black;}
+a.linklevel1.name {color:black; text-decoration: underline; display: block; max-width:13em; white-space:nowrap; text-overflow:clip;}
+.poster .subsections>a:after {content:""}
+
 .board_lastpost,.topic_lastpost {
 	font-size: 0.9em;
 }
@@ -30,6 +34,10 @@ a.new_win:link, a.new_win:visited {
 #adm_submenus .active, .admin_menu .active, #adm_submenus .active {
 	background: #405a6a;
 	background-image: linear-gradient(to bottom, #405a6a 0%,#37434b 49%,#37434b 51%,#405a6a 100%);
+}
+
+.listlevel1.subsections {
+	top: 0px;
 }
 
 #menu_nav .listlevel1.subsections>a:before {
@@ -77,18 +85,18 @@ html ,#footer_section {
 }
 .off_board:before, .new_none_board:before {
 	font-family: "FontAwesome";
-	content: '\F141';
+	content: '\F001';
 	position: relative;
 	top: 5px;
-	font-size: 1.5em;
-	color: #cce;
+	font-size: 1.8em;
+	color: #ddd;
 }
 .on_board:before, .new_some_board:before  {
 	font-family: "FontAwesome";
 	content: '\F001';
 	position: relative;
 	top: 5px;
-	font-size: 2.7em;
+	font-size: 2.5em;
 	color: #22c;
 }
 .on2_board:before {
@@ -96,7 +104,7 @@ html ,#footer_section {
 	content: '\F001';
 	position: relative;
 	top: 5px;
-	font-size: 2.7em;
+	font-size: 2.5em;
 	color: #22c;
 }
 
