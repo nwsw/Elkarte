@@ -117,6 +117,9 @@ function template_list_boards($boards, $id)
 							<span class="board_icon redirect_board" title="*"></span>';
 
 		// No new posts at all! The agony!!
+		elseif (empty($context['user']['is_logged']))
+			echo '
+							<span class="board_icon on_board" title="Open"></span>';
 		else
 			echo '
 							<span class="board_icon off_board" title="', $txt['old_posts'], '"></span>';

@@ -435,9 +435,9 @@ div.bbc_footnotes .meaction {
 	color: #004;
 	text-decoration: none;
 }
-.listlevel1.subsections {
-	top: 0px;
-}
+.listlevel1.subsections {top:0px;}
+#main_menu .listlevel1.subsections {top:-1px;}
+
 .poster .listlevel1 a.linklevel1 {
 	font-size: 1.1em;
 }
@@ -877,8 +877,8 @@ ul.childboards a {color: #006;}
 	content: '\F001';
 	position: relative;
 	top: 5px;
-	font-size: 1.8em;
-	color: #ddd;
+	font-size: 1.9em;
+	color: #aaa;
 }
 .on_board:before, .new_some_board:before, .on2_board:before  {
 	font-family: "FontAwesome";
@@ -894,13 +894,14 @@ ul.childboards a {color: #006;}
 	position: relative;
 	top: 5px;
 	font-size: 2.7em;
-	color: #888;
+	color: #666;
 }
 .new_redirect_board:before, .new_none_board:before, .new_some_board:before {
 	font-size: 1.2em;
 	position: relative;
 	top: -2px;
 }
+#posting_icons {display:none;}
 .topic_listing li {
 	border-bottom: 1px solid #eee;
 }
