@@ -50,8 +50,8 @@ function sendmail($to, $subject, $message, $from = null, $message_id = null, $se
 	// Using maillist styles and this message qualifies (priority 3 and below only (4 = digest, 5 = newsletter))
 	$maillist = !empty($modSettings['maillist_enabled']) && $from_wrapper !== null && $message_id !== null && $priority < 4 && empty($modSettings['mail_no_message_id']);
 
-	// Line breaks need to be \r\n only in windows or for SMTP.
-	$line_break = !empty($context['server']['is_windows']) || !$use_sendmail ? "\r\n" : "\n";
+	// Line breaks need to *ALWAYS* be \r\n
+	$line_break = "\r\n";
 
 	// So far so good.
 	$mail_result = true;
