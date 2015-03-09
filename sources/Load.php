@@ -241,6 +241,9 @@ function loadUserSettings()
 	// Found 'im, let's set up the variables.
 	if ($id_member != 0)
 	{
+		//nwsw hook to handle any member upgrades
+		nw_elk_load_user($id_member);
+
 		// Let's not update the last visit time in these cases...
 		// 1. SSI doesn't count as visiting the forum.
 		// 2. RSS feeds and XMLHTTP requests don't count either.

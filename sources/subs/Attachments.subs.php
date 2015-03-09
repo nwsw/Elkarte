@@ -776,6 +776,8 @@ function attachmentChecks($attachID)
 		}
 	}
 
+	nw_elk_check_attachment($attachID);
+
 	// Undo the math if there's an error
 	if (!empty($_SESSION['temp_attachments'][$attachID]['errors']))
 	{
