@@ -155,7 +155,7 @@ function template_messages()
 
 		echo '
 							<span id="post_subject_', $message['id'], '" class="post_subject">', $message['subject'], '</span>
-							<span id="messageicon_', $message['id'], '" class="messageicon"  ', ($message['icon_url'] !== $settings['images_url'] . '/post/xx.png') ? '' : 'style="display:none;"', '>
+							<span id="messageicon_', $message['id'], '" class="messageicon">
 								<img src="', $message['icon_url'] . '" alt=""', $message['can_modify'] ? ' id="msg_icon_' . $message['id'] . '"' : '', ' />
 							</span>
 							<h5 id="info_', $message['id'], '">

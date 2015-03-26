@@ -43,6 +43,7 @@ function getMessageIcons($board_id)
 
 		$icons = array(
 			array('value' => 'xx', 'name' => $txt['standard']),
+			array('value' => 'clip', 'name' => 'Clip'),
 			array('value' => 'thumbup', 'name' => $txt['thumbs_up']),
 			array('value' => 'thumbdown', 'name' => $txt['thumbs_down']),
 			array('value' => 'exclamation', 'name' => $txt['exclamation_point']),
