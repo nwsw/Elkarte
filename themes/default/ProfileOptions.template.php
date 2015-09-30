@@ -625,7 +625,7 @@ function template_profile_theme_settings()
 							</dt>
 							<dd>
 								<input type="hidden" name="default_options[wysiwyg_default]" value="0" />
-								<input type="checkbox" name="default_options[wysiwyg_default]" id="wysiwyg_default" value="1"', !empty($context['member']['options']['wysiwyg_default']) ? ' checked="checked"' : '', ' class="input_check" />
+								<input type="checkbox" name="default_options[wysiwyg_default]" id="wysiwyg_default" value="1"', !empty($context['member']['options']['wysiwyg_default']) ? ' checked="checked"' : '', ' class="input_check" disabled />
 							</dd>';
 
 	if (empty($modSettings['disableCustomPerPage']))
