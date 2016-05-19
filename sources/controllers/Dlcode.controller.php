@@ -55,7 +55,7 @@ class Dlcode_Controller extends Action_Controller
 
 		$real_codeblock = trim(html_entity_decode($msg_parts[(4*$real_codeblocknum)-2],ENT_QUOTES,'UTF-8'));
 		$real_filetype = strtolower(substr($msg_parts[(4*$real_codeblocknum)-3],6,-1));
-		if (!$real_filetype || !in_array($real_filetype,array('nwc','php','py','nwctxt','nwcitree','lua'))) $real_filetype = 'txt';
+		if (!$real_filetype || !in_array($real_filetype,array('ini','nwc','php','py','nwctxt','nwcitree','lua'))) $real_filetype = 'txt';
 		if ($real_filetype == 'nwc') $real_filetype = 'nwctxt';
 		$real_filename = "msg".$real_msgid."n".$real_codeblocknum.".".$real_filetype;
 
