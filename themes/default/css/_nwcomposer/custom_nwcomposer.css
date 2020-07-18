@@ -28,7 +28,6 @@ a.new_win:link, a.new_win:visited {
 }
 #adm_submenus .active, .admin_menu .active, #adm_submenus .active {
 	background: #004;
-	background-image: linear-gradient(to bottom, #004 0%,#37434b 49%,#37434b 51%,#004 100%);
 }
 
 .listlevel1.subsections {
@@ -67,7 +66,6 @@ html ,#footer_section {
 	font-size: 1.1em;
 	font-weight: normal;
 	border-bottom: 1px solid #333;
-	background: linear-gradient(to bottom, rgba(64,90,106,1) 66%, rgba(81,104,117,1) 90%, rgba(88,110,122,1) 100%);
 }
 .forumposts .category_header a, .content_category .category_header a {
 	color: #eee;

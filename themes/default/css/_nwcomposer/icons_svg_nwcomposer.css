@@ -106,13 +106,24 @@
 }
 
 .i-board-new::before {
-	content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2390CCE9' stroke='%23AEAEAE' stroke-width='.25em' viewBox='-4 0 62 62'%3E%3Cpath d='M56 28q0 5.44-3.75 10.05t-10.2 7.28T28 48q-2.2 0-4.53-.25-6.2 5.47-14.38 7.56-1.6.5-3.6.7-.6.1-1-.2t-.57-.9v-.02q-.1-.12 0-.37t.06-.3.14-.3l.2-.3.2-.26.27-.27q.23-.27.98-1.1t1.1-1.2.95-1.23 1-1.6.84-1.85.8-2.38q-4.88-2.8-7.7-6.9T0 28q0-4.06 2.22-7.76t5.97-6.4 8.9-4.26T28 8q7.63 0 14.06 2.67t10.2 7.28T56 28z'/%3E%3C/svg%3E");
+	font-family: "FontAwesome";
+	content: '\F001';
+	font-size: 2.5em;
+	color: #22c;
 }
 
 .i-board-sub::before {
-	content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23CFCFCF' stroke='%23AEAEAE' stroke-width='.25em' viewBox='-4 0 62 62'%3E%3Cpath d='M56 28q0 5.44-3.75 10.05t-10.2 7.28T28 48q-2.2 0-4.53-.25-6.2 5.47-14.38 7.56-1.6.5-3.6.7-.6.1-1-.2t-.57-.9v-.02q-.1-.12 0-.37t.06-.3.14-.3l.2-.3.2-.26.27-.27q.23-.27.98-1.1t1.1-1.2.95-1.23 1-1.6.84-1.85.8-2.38q-4.88-2.8-7.7-6.9T0 28q0-4.06 2.22-7.76t5.97-6.4 8.9-4.26T28 8q7.63 0 14.06 2.67t10.2 7.28T56 28z'/%3E%3C/svg%3E");
+	font-family: "FontAwesome";
+	content: '\F001';
+	font-size: 2.5em;
+	color: #22c;
 }
 
 .i-board-off::before {
-	content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23AEAEAE' viewBox='0 0 56 56'%3E%3Cpath d='M28 12q-6.38 0-11.92 2.17t-8.8 5.86T3.98 28q0 3.5 2.23 6.67t6.3 5.5l2.75 1.55-.85 3q-.76 2.84-2.2 5.37 4.76-2 8.6-5.38l1.34-1.2 1.8.2Q26.08 44 28 44q6.37 0 11.92-2.17t8.8-5.86T52 28t-3.27-7.97-8.8-5.86T28 12zm28 16q0 5.44-3.75 10.05t-10.2 7.28T28 48q-2.2 0-4.53-.25-6.2 5.47-14.38 7.56-1.57.48-3.6.7h-.16q-.47 0-.84-.3t-.5-.86v-.02q-.1-.1 0-.36t.07-.3.14-.3l.2-.28.2-.27.27-.3q.22-.23.97-1.06t1.08-1.2.98-1.23 1-1.6.84-1.84.8-2.37q-4.92-2.8-7.74-6.9T0 28q0-5.44 3.75-10.05t10.2-7.28T28 8t14.06 2.67 10.2 7.28T56 28z'/%3E%3C/svg%3E");
+	font-family: "FontAwesome";
+	content: '\F001';
+	font-size: 1.9em;
+	color: #aaa;	
 }
+
+#posting_icons .icon::before {font-size: 1em; font-style: normal;}

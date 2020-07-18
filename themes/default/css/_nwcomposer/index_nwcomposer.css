@@ -1,49 +1,3 @@
-/* INTRODUCTION
- *
- * This is a very basic version of the Elkarte default theme.
- * It is intended primarily as a "clean slate" for custom theming.
- * This is eye candy only. All the layout code is in index.css.
- *
- * All theme variants depend on the layout code for stability.
- * It is better to copy code to a variant CSS file for testing.
- *
- * -------------------------------------------------------
- * $CONTENTS - still a bit WIP. @todo
- *
- *		$GENERAL.............Global resets, clearfixes, etc.
- *		$COMMON..............Common classes to drive you bonkers.
- *		$BBC.................Quotes, code blocks, BBC styles.
- *		$AJAX................The "loading" bar (quick edit, etc).
- *
- *		$MAIN................Forum header, wrapper, and footer.
- *		$MENUS...............Main and secondary menus.
- *		$LINKTREE............The breadcrumbs.
- *		$BUTTONS.............Most button strips.
- *		$PAGELINKS...........Page navigation links.
- *
- *		$TABLES..............Generic tables (memberlist, error log, etc).
- *		$SETTINGS............Generic lists for settings pages.
- *		$BOARDS..............Board index, sub-boards, and message index.
- *
- *		$TOPICS..............The display template (topic view), including send.
- *		$EDITOR..............Main editor (posts, events, polls) and topic summary.
- *		$MODERATE............Move topic, split topic, merge topic.
- *
- *		$PROFILE.............The profile areas.
- *		$PERSONAL............The personal messages (PM) areas.
- *		$CALENDAR............The calendar
- *		$STATISTICS..........The statistics centre.
- *
- *		$HELP................Help pages, help icons and pop-ups, tooltips.
- *		$SEARCH..............Search pages, including memberlist search.
- *		$MEMBERLIST..........The memberlist table.
- *		$LOGIN...............Login and registration, maintenance mode.
- *
- *		$BOXES...............Message boxes (error, warning, info, etc).
- *		$PROGRESS............Nifty progress bars.
- *		$MEDIA...............Experimental media queries.
- */
-
 /* -------------------------------------------------------
  * $GENERAL
  * -------------------------------------------------------
@@ -53,7 +7,7 @@
 a, a:link, a:visited,
 /* Links that open in a new window. */
 a.new_win:link, a.new_win:visited {
-	color: #008299;
+	color: #405a6a;
 	text-decoration: none;
 }
 
@@ -73,7 +27,7 @@ body {
 	padding-top: 35px;
 	background: #EEEEEE;
 	color: #4D4F53;
-	font: 90%/130% Helvetica, Arial, "Nimbus Sans L", sans-serif;
+	font: 90%/130% Georgia, Verdana, sans-serif;
 }
 
 fieldset {
@@ -164,7 +118,7 @@ input[type="submit"]:hover, button[type="submit"]:hover, input[type="button"]:ho
 /* the new "button" */
 .new_posts, .new_posts:visited, .new_posts:link {
 	border-radius: 4px;
-	background: #7BB128;
+	background: #44F;
 	color: #FFFFFF;
 }
 
@@ -197,11 +151,11 @@ hr {
 	margin-bottom: 5px;
 	border-radius: 5px;
 	border-color: transparent;
-	background: #EEEEEE;
-	color: #666666;
+	background: #004;
+	color: white;
 	text-shadow: 1px 1px 0 #EBEBEB;
 	font-weight: bolder;
-	font-size: 1.5em;
+	font-size: 1.3em;
 }
 
 /* Single ones a bit darker than board index ones. */
@@ -209,7 +163,6 @@ hr {
 	border: 1px solid #CCCCCC;
 	border-top: 1px solid #CFCFCF;
 	border-bottom: 1px solid #B7B7B7;
-	background: #EBEBEB;
 }
 
 /* Styles for subsection headers. @todo */
@@ -221,7 +174,7 @@ hr {
 }
 
 .category_header a:link, .category_header a:visited {
-	color: #777777;
+	color: white;
 }
 
 /* Upshrink image in the general category headers */
@@ -386,12 +339,12 @@ hr {
 /* Styling for BBC tags */
 .bbc_link:link, .bbc_link:visited {
 	box-shadow: 0 -1px 0 #CEDCCB inset;
-	color: #377828;
+	color: #008;
 }
 
 .bbc_link:hover {
 	box-shadow: 0 -1px 0 #66AA55 inset;
-	color: #377828;
+	color: #00C;
 	text-decoration: none;
 }
 /* Styling for tables inside posts */
@@ -414,7 +367,7 @@ hr {
 
 /* /me uses this a lot. (emote, try typing /me in a post.) */
 .meaction {
-	color: #50AA3A;
+	color: #004;
 }
 
 .meaction:before {
@@ -439,7 +392,7 @@ div.bbc_footnotes {
 }
 
 sup.bbc_footnotes, sup.bbc_footnotes a {
-	color: #50AA3A;
+	color: #004;
 }
 
 div.bbc_footnotes .meaction {
@@ -638,7 +591,7 @@ div.bbc_footnotes .meaction {
 
 .poster .listlevel2:hover .linklevel2 {
 	box-shadow: none;
-	color: #008299;
+	color: #405a6a;
 }
 
 .poster .listlevel1.subsections:hover:after {
@@ -695,8 +648,7 @@ div.bbc_footnotes .meaction {
 	padding: 0;
 	min-height: 35px;
 	width: 100%;
-	background: #333333;
-	background-image: linear-gradient(to bottom, #4D4F53 0%, #333333 49%, #333333 51%, #4D4F53 100%);
+	background: black;
 	color: #EEEEEE;
 	line-height: 30px;
 	transform: translateZ(0);
@@ -736,8 +688,7 @@ div.bbc_footnotes .meaction {
 /* ......and for secondary admin/profile/etc menu strip. */
 #adm_submenus .active {
 	border: 1px solid #AAAAAA;
-	background: #7BB128;
-	background-image: linear-gradient(to bottom, #9DD53A 0%, #A1D54F 21%, #80C217 63%, #7CBC0A 100%);
+	background: #004;
 	color: white;
 }
 
@@ -813,7 +764,7 @@ a.active {
 .listlevel2:hover .linklevel2, /* < highlighted with cursor over level 3. */
 .linklevel2:hover, .linklevel2:focus, .linklevel2.sfhover:focus,
 .linklevel3:hover, .linklevel3:focus, .linklevel3.sfhover:focus {
-	background: #7BB128;
+	background: #04f;
 	color: #FFFFFF;
 	text-decoration: none;
 }
@@ -884,7 +835,7 @@ a.active {
 }
 
 .pagelinks .navPages:hover, .pagelinks .current_page {
-	background: #7BB128;
+	background: #004;
 	color: white;
 	text-decoration: none;
 }
@@ -979,11 +930,11 @@ a.active {
 	padding: 0;
 	text-shadow: 1px 1px 2px #FFFFFF;
 	font-weight: bolder;
-	font-size: 2.5em;
+	font-size: 2.2em;
 }
 
 #forumtitle > a {
-	color: #43A8DA;
+	color: #004;
 }
 
 /* News section. */
@@ -1055,10 +1006,11 @@ a.active {
  * -------------------------------------------------------
  */
 .board_name > a {
-	color: #43A8DA;
+	color: #004;
 	font-weight: bold;
 	font-size: 1.214em;
 }
+ul.childboards a {color: #006;}
 
 .board_row,
 .childboard_row,
@@ -1077,7 +1029,7 @@ a.active {
 }
 
 .topic_name h4 a {
-	color: #43A8DA;
+	color: #004;
 }
 
 .topic_listing .warningbox {
@@ -1502,6 +1454,8 @@ a.active {
 #main_grid td.calendar_today, .calendar_table td.calendar_today {
 	background: transparent;
 }
+
+.nwcplugid {font-weight:bold; font-size:1.3em; color:#800;}
 
 /* -------------------------------------------------------
  *	$HELP
