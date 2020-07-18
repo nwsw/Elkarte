@@ -1,0 +1,133 @@
+body {
+	color:black;
+	font-family: Georgia, Verdana, sans-serif;
+}
+
+.poster .subsections>a:after {content:""}
+
+a, a:link, a:visited,
+a.new_win:link, a.new_win:visited {
+	color: #004;
+	text-decoration: none;
+}
+
+::-moz-selection, ::selection {
+	background: #004;
+	color: white;
+}
+::selection {
+	background: #004;
+	color: white
+}
+
+#forumtitle>a, #news h2, .topic_name h4 a, .bbc_link :hover, .bbc_link:visited , .bbc_link:link, .drop_area {
+	color: #004;
+}
+#menu_nav {
+	background: black;
+}
+#adm_submenus .active, .admin_menu .active, #adm_submenus .active {
+	background: #004;
+	background-image: linear-gradient(to bottom, #004 0%,#37434b 49%,#37434b 51%,#004 100%);
+}
+
+.listlevel1.subsections {
+	top: 0px;
+}
+
+#menu_nav .listlevel1.subsections>a:before {
+	color: #b6c8d4;
+}
+html ,#footer_section {
+	background-color: #777;
+	border-top: none;
+}
+#logo {
+	display: none;
+}
+#news {
+	border: 1px solid #eee;
+}
+
+.listlevel2:hover .linklevel2,
+.linklevel2:hover, .linklevel2:focus, .linklevel2.sfhover:focus,
+.linklevel3:hover, .linklevel3:focus, .linklevel3.sfhover:focus {
+	background: #004;
+	color: #fff;
+	text-decoration: none;
+}
+.pagelinks .current_page, .new_posts, .new_posts:visited, .new_posts:link {
+	background-color: #004;
+}
+.category_header, .forum_category .category_header, .forumposts .category_header, .content_category .category_header  {
+	background: #004;
+	color: #fff;
+	text-shadow: none;
+	border-radius: 8px 8px 0 0;
+	font-size: 1.1em;
+	font-weight: normal;
+	border-bottom: 1px solid #333;
+	background: linear-gradient(to bottom, rgba(64,90,106,1) 66%, rgba(81,104,117,1) 90%, rgba(88,110,122,1) 100%);
+}
+.forumposts .category_header a, .content_category .category_header a {
+	color: #eee;
+}
+.category_header a, .forum_category .category_header a{
+	color: #fff;
+}
+.board_icon, .on_board, .on2_board, .off_board, .category_boards .board_icon, .new_some_board:before, .new_none_board:before, .new_redirect_board:before {
+	background-image: none;
+}
+.off_board:before, .new_none_board:before {
+	font-family: "FontAwesome";
+	content: '\F001';
+	position: relative;
+	top: 5px;
+	font-size: 1.8em;
+	color: #ddd;
+}
+.on_board:before, .new_some_board:before  {
+	font-family: "FontAwesome";
+	content: '\F001';
+	position: relative;
+	top: 5px;
+	font-size: 2.5em;
+	color: #22c;
+}
+.on2_board:before {
+	font-family: "FontAwesome";
+	content: '\F001';
+	position: relative;
+	top: 5px;
+	font-size: 2.5em;
+	color: #22c;
+}
+
+.redirect_board:before, .new_redirect_board:before {
+	font-family: "FontAwesome";
+	content: '\f061';
+	position: relative;
+	top: 5px;
+	font-size: 2.7em;
+	color: #888;
+}
+.new_redirect_board:before, .new_none_board:before, .new_some_board:before {
+	font-size: 1.2em;
+	position: relative;
+	top: -2px;
+}
+
+@media screen and (max-width: 50em) {
+	[data-icon]:before {
+		color: #b6c8d4;
+	}
+	.off_board:before, .on_board:before, .on2_board:before , .redirect_board {
+		font-size: 1.5em;
+		position: relative;
+		top: -2px;
+	}
+}
+
+@media screen and (min-width: 50em) {
+	#menu_nav .listlevel1.subsections>a[href*="//noteworthy"]:before {content:"";}
+	}
