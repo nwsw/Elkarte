@@ -3,14 +3,14 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:		BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0
- *
+ * @version 1.1.6
+ */
+
+/**
  * This file contains javascript associated with the captcha visual verification stuffs.
  */
 
@@ -21,13 +21,12 @@
 			'letterCount' : 5,
 			'uniqueID' : '',
 			'imageURL' : '',
-			'useLibrary' : false,
 			'refreshevent': 'click',
 			'playevent': 'click',
 			'admin': false
 		};
 
-		$.extend(settings, options);
+		settings = $.extend(settings, options);
 
 		return this.each(function() {
 			$this = $(this);
@@ -81,16 +80,7 @@
 							new_url = new_url + hexstr.substr(Math.floor(Math.random() * 16), 1);
 					}
 
-					if (settings.useLibrary)
-					{
-						$('#verification_image' + uniqueID).attr('src', new_url);
-					}
-					else if (document.getElementById("verification_image" + uniqueID))
-					{
-						for (i = 1; i <= settings.letterCount; i++)
-							if (document.getElementById("verification_image" + uniqueID + "_" + i))
-								document.getElementById("verification_image" + uniqueID + "_" + i).src = new_url + ";letter=" + i;
-					}
+					$('#verification_image' + uniqueID).attr('src', new_url);
 				});
 			}
 		});

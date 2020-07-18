@@ -8,23 +8,27 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
- * license:	BSD, See included LICENSE.TXT for terms and conditions.
+ * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.8
- * 
+ * @version 1.1.6
+ *
  */
 
 // Start things rolling by getting the forum alive...
+if (!file_exists(dirname(__FILE__) . '/bootstrap.php'))
+	die('Unable to initialize');
+
+global $ssi_guest_access;
+
+require_once(dirname(__FILE__) . '/bootstrap.php');
 $ssi_guest_access = true;
-if (!file_exists(dirname(__FILE__) . '/SSI.php'))
-	die('Cannot find SSI.php');
+new Bootstrap(true);
+
+global $txt, $modSettings, $context, $scripturl;
 
 // Need lots of help
-require_once(dirname(__FILE__) . '/SSI.php');
 require_once(SUBSDIR . '/PaidSubscriptions.subs.php');
 require_once(SUBSDIR . '/Admin.subs.php');
 require_once(SUBSDIR . '/Members.subs.php');
@@ -73,7 +77,7 @@ foreach ($gatewayHandles as $gateway)
 if (empty($txnType))
 	generateSubscriptionError($txt['paid_unknown_transaction_type']);
 
-// Get the subscription and member ID amoungst others...
+// Get the subscription and member ID amongst others...
 @list($subscription_id, $member_id) = $gatewayClass->precheck();
 
 // Integer these just in case.
@@ -247,6 +251,7 @@ $gatewayClass->close();
  * Log an error then exit
  *
  * @param string $text
+ * @throws \Elk_Exception
  */
 function generateSubscriptionError($text)
 {
@@ -270,7 +275,7 @@ function generateSubscriptionError($text)
 	}
 
 	// Then just log and die.
-	log_error($text);
+	Errors::instance()->log_error($text);
 
 	exit;
 }

@@ -7,18 +7,13 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0
+ * @version 1.1.4
  *
  */
-
-if (!defined('ELK'))
-	die('No access...');
 
 /**
  * Gets a list of all available message icons.
@@ -39,7 +34,8 @@ function fetchMessageIconsDetails()
 		SELECT m.id_icon, m.title, m.filename, m.icon_order, m.id_board, b.name AS board_name
 		FROM {db_prefix}message_icons AS m
 			LEFT JOIN {db_prefix}boards AS b ON (b.id_board = m.id_board)
-		WHERE ({query_see_board} OR b.id_board IS NULL)',
+		WHERE ({query_see_board} OR b.id_board IS NULL)
+		ORDER BY m.icon_order',
 		array(
 		)
 	);
@@ -127,11 +123,10 @@ function sortMessageIconTable()
 {
 	$db = database();
 
+	$db->skip_next_error();
 	$db->query('alter_table', '
 		ALTER TABLE {db_prefix}message_icons
 		ORDER BY icon_order',
-		array(
-			'db_error_skip' => true,
-		)
+		array()
 	);
 }

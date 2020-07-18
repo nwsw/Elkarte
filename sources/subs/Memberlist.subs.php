@@ -7,18 +7,13 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.7
+ * @version 1.1.4
  *
  */
-
-if (!defined('ELK'))
-	die('No access...');
 
 /**
  * Reads the custom profile fields table and gets all items that were defined
@@ -37,7 +32,7 @@ function ml_CustomProfile()
 
 	// Find any custom profile fields that are to be shown for the memberlist?
 	$request = $db->query('', '
-		SELECT col_name, field_name, field_desc, field_type, bbc, enclose, vieworder
+		SELECT col_name, field_name, field_desc, field_type, bbc, enclose, vieworder, default_value, field_options
 		FROM {db_prefix}custom_fields
 		WHERE active = {int:active}
 			AND show_memberlist = {int:show}
@@ -61,6 +56,8 @@ function ml_CustomProfile()
 			'type' => $row['field_type'],
 			'bbc' => !empty($row['bbc']),
 			'enclose' => $row['enclose'],
+			'default_value' => $row['default_value'],
+			'field_options' => explode(',', $row['field_options']),
 		);
 
 		// Have they selected to sort on a custom column? .., then we build the query
@@ -69,8 +66,8 @@ function ml_CustomProfile()
 			// Build the sort queries.
 			if ($row['field_type'] != 'check')
 				$context['custom_profile_fields']['columns'][$curField]['sort'] = array(
-					'down' => 'LENGTH(cfd' . $curField . '.value) > 0 ASC, IFNULL(cfd' . $curField . '.value, 1=1) DESC, cfd' . $curField . '.value DESC',
-					'up' => 'LENGTH(cfd' . $curField . '.value) > 0 DESC, IFNULL(cfd' . $curField . '.value, 1=1) ASC, cfd' . $curField . '.value ASC'
+					'down' => 'LENGTH(cfd' . $curField . '.value) > 0 ASC, COALESCE(cfd' . $curField . '.value, 1=1) DESC, cfd' . $curField . '.value DESC',
+					'up' => 'LENGTH(cfd' . $curField . '.value) > 0 DESC, COALESCE(cfd' . $curField . '.value, 1=1) ASC, cfd' . $curField . '.value ASC'
 				);
 			else
 				$context['custom_profile_fields']['columns'][$curField]['sort'] = array(
@@ -335,10 +332,12 @@ function printMemberListRows($request)
 	// Load all the members for display.
 	loadMemberData($members);
 
+	$bbc_parser = \BBC\ParserWrapper::instance();
+
 	$context['members'] = array();
 	foreach ($members as $member)
 	{
-		if (!loadMemberContext($member))
+		if (!loadMemberContext($member, true))
 			continue;
 
 		$context['members'][$member] = $memberContext[$member];
@@ -347,7 +346,7 @@ function printMemberListRows($request)
 		$context['members'][$member]['real_name'] = $context['members'][$member]['link'];
 		$context['members'][$member]['avatar'] = '<a href="' . $context['members'][$member]['href'] . '">' . $context['members'][$member]['avatar']['image'] . '</a>';
 		$context['members'][$member]['email_address'] = $context['members'][$member]['email'];
-		$context['members'][$member]['website_url'] = $context['members'][$member]['website']['url'] != '' ? '<a href="' . $context['members'][$member]['website']['url'] . '" target="_blank" class="new_win"><img src="' . $settings['images_url'] . '/profile/www.png" alt="' . $context['members'][$member]['website']['title'] . '" title="' . $context['members'][$member]['website']['title'] . '" /></a>' : '';
+		$context['members'][$member]['website_url'] = $context['members'][$member]['website']['url'] != '' ? '<a href="' . $context['members'][$member]['website']['url'] . '" target="_blank" class="new_win"><i class="icon i-website" title="' . $context['members'][$member]['website']['title'] . '" title="' . $context['members'][$member]['website']['title'] . '"></i></a>' : '';
 		$context['members'][$member]['id_group'] = empty($context['members'][$member]['group']) ? $context['members'][$member]['post_group'] : $context['members'][$member]['group'];
 		$context['members'][$member]['date_registered'] = $context['members'][$member]['registered'];
 
@@ -359,24 +358,37 @@ function printMemberListRows($request)
 				$curField = substr($key, 5);
 
 				// Does this member even have it filled out?
-				if (!isset($context['members'][$member]['options'][$curField]))
+				if (!isset($context['members'][$member]['options'][$curField]) && $context['custom_profile_fields']['columns'][$key]['default_value'] === '')
 				{
 					$context['members'][$member]['options'][$curField] = '';
 					continue;
 				}
+				// Otherwise use the default value
+				if (!isset($context['members'][$member]['options'][$curField]))
+				{
+					$context['members'][$member]['options'][$curField] = $context['custom_profile_fields']['columns'][$key]['default_value'];
+					$context['members'][$member]['options'][$curField . '_key'] = $curField . '_0';
+				}
 
 				// Should it be enclosed for display?
 				if (!empty($column['enclose']) && !empty($context['members'][$member]['options'][$curField]))
-					$context['members'][$member]['options'][$curField] = strtr($column['enclose'], array(
+				{
+					$replacements = array(
 						'{SCRIPTURL}' => $scripturl,
 						'{IMAGES_URL}' => $settings['images_url'],
 						'{DEFAULT_IMAGES_URL}' => $settings['default_images_url'],
 						'{INPUT}' => $context['members'][$member]['options'][$curField],
-					));
+					);
+					if (in_array($column['type'], array('radio', 'select')))
+					{
+						$replacements['{KEY}'] = $context['members'][$member]['options'][$curField . '_key'];
+					}
+					$context['members'][$member]['options'][$curField] = strtr($column['enclose'], $replacements);
+				}
 
 				// Anything else to make it look "nice"
 				if ($column['bbc'])
-					$context['members'][$member]['options'][$curField] = strip_tags(parse_bbc($context['members'][$member]['options'][$curField]));
+					$context['members'][$member]['options'][$curField] = strip_tags($bbc_parser->parseCustomFields($context['members'][$member]['options'][$curField]));
 				elseif ($column['type'] === 'check')
 					$context['members'][$member]['options'][$curField] = $context['members'][$member]['options'][$curField] == 0 ? $txt['no'] : $txt['yes'];
 			}

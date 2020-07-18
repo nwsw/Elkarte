@@ -1,5 +1,5 @@
 <?php
-// Version: 1.0; Errors
+// Version: 1.1; Errors
 
 $txt['no_access'] = 'Sorry, we can\'t let you access this section. We can\'t even tell you if it exists. You\'re welcome to visit the main page and choose your way from there.';
 $txt['not_guests'] = 'Sorry, this action is not available to guests.';
@@ -124,11 +124,13 @@ $txt['cannot_view_attachments'] = 'It seems that you are not allowed to download
 $txt['cannot_view_mlist'] = 'You can\'t view the member list because you don\'t have permission to.';
 $txt['cannot_view_stats'] = 'You aren\'t allowed to view the forum statistics.';
 $txt['cannot_who_view'] = 'Sorry - you don\'t have the proper permissions to view the Who\'s Online list.';
+$txt['cannot_like_posts_stats'] = 'Sorry - you don\'t have the proper permissions to view the Like posts stats.';
 
 $txt['no_theme'] = ' We can\'t find that theme.';
 $txt['theme_dir_wrong'] = 'The default theme\'s directory is wrong, please correct it by clicking this text.';
 $txt['registration_disabled'] = 'Sorry, registration is currently disabled.';
 $txt['registration_agreement_missing'] = 'The registration agreement file, agreement.txt, is either missing or empty.  Registrations will be disabled until this is fixed';
+$txt['registration_privacy_policy_missing'] = 'The privacy policy file, privacypolicy.txt, is either missing or empty.  Registrations will be disabled until this is fixed';
 $txt['registration_no_secret_question'] = 'Sorry, there is no secret question set for this member.';
 $txt['poll_range_error'] = 'Sorry, the poll must run for more than 0 days.';
 $txt['delFirstPost'] = 'You are not allowed to delete the first post in a topic.<p>If you want to delete this topic, click on the Remove link, or ask a moderator/administrator to do it for you.</p>';
@@ -369,6 +371,7 @@ $txt['ignoreboards_disallowed'] = 'The option to ignore boards has not been enab
 
 $txt['mboards_delete_error'] = 'No category selected.';
 $txt['mboards_delete_board_error'] = 'No board selected.';
+$txt['mboards_delete_board_has_posts'] = 'Selected board still has posts and/or topics.';
 
 $txt['mboards_parent_own_child_error'] = 'You can not make a parent its own child.';
 $txt['mboards_board_own_child_error'] = 'You can not make a board its own child.';
@@ -425,3 +428,5 @@ $txt['error_sa_not_set'] = 'The Sub-action you requested is not defined';
 
 // Drag / Drop sort errors
 $txt['no_sortable_items'] = 'No sortable items were found';
+
+$txt['error_invalid_notification_id'] = 'An addon is trying to register a notification method with an existing ID. IDs lower than 5 are protected and cannot be used by addons. If the ID is higher, then two addons may be sharing the same ID.';

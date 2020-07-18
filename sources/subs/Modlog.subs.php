@@ -7,18 +7,13 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.8
+ * @version 1.1.1
  *
  */
-
-if (!defined('ELK'))
-	die('No access...');
 
 /**
  * Get the number of mod log entries.
@@ -63,9 +58,9 @@ function list_getModLogEntryCount($query_string = '', $query_params = array(), $
  * Gets the moderation log entries that match the specified parameters.
  * Callback for createList() in Modlog::action_log().
  *
- * @param int $start
- * @param int $items_per_page
- * @param string $sort
+ * @param int $start The item to start with (for pagination purposes)
+ * @param int $items_per_page  The number of items to show per page
+ * @param string $sort A string indicating how to sort the results
  * @param string|null $query_string
  * @param mixed[] $query_params
  * @param int $log_type
@@ -197,7 +192,7 @@ function list_getModLogEntries($start, $items_per_page, $sort, $query_string = '
 			'id' => $row['id_action'],
 			'ip' => $seeIP ? $row['ip'] : $txt['logged'],
 			'position' => empty($row['real_name']) && empty($row['group_name']) ? $txt['guest'] : $row['group_name'],
-			'moderator_link' => $row['id_member'] ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>' : (empty($row['real_name']) ? ($txt['guest'] . (!empty($row['extra']['member_acted']) ? ' (' . $row['extra']['member_acted'] . ')' : '')) : $row['real_name']),
+			'moderator_link' => $row['id_member'] && !empty($row['real_name']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>' : (empty($row['real_name']) ? ($txt['guest'] . (!empty($row['extra']['member_acted']) ? ' (' . $row['extra']['member_acted'] . ')' : '')) : $row['real_name']),
 			'time' => standardTime($row['log_time']),
 			'html_time' => htmlTime($row['log_time']),
 			'timestamp' => forum_time(true, $row['log_time']),
@@ -348,13 +343,16 @@ function list_getModLogEntries($start, $items_per_page, $sort, $query_string = '
 }
 
 /**
- * Mod Log Replacment Callback.
+ * Mod Log Replacement Callback.
  *
- * Our callback that does the actual replacment.
+ * Our callback that does the actual replacement.
  *
  */
 class ModLogEntriesReplacement
 {
+	public $entries;
+	public $key;
+
 	/**
 	 * Matching function to return the value in the callback
 	 *
@@ -403,7 +401,7 @@ function recentlyLogged($action, $time = 60)
 {
 	$db = database();
 
-	$request = $db->query('','
+	$request = $db->query('', '
 		SELECT COUNT(*)
 		FROM {db_prefix}log_actions
 		WHERE action = {string:action}

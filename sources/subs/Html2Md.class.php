@@ -7,12 +7,9 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * @version 1.0.10
+ * @version 1.1.6
  *
  */
-
-if (!defined('ELK'))
-	die('No access...');
 
 /**
  * Converts HTML to Markdown text
@@ -162,9 +159,14 @@ class Html_2_Md
 		// Clean up any excess spacing etc
 		$this->_clean_markdown();
 
+		// Convert any clear text links to MD
+		$this->_convert_plaintxt_links();
+
 		// Wordwrap?
 		if (!empty($this->body_width))
+		{
 			$this->markdown = $this->_utf8_wordwrap($this->markdown, $this->body_width, $this->line_end);
+		}
 
 		return $this->markdown;
 	}
@@ -175,7 +177,7 @@ class Html_2_Md
 	 *
 	 * @return object
 	 */
-	private function  _getBody()
+	private function _getBody()
 	{
 		// If there is a head node, then off with his head!
 		$this->_clipHead();
@@ -209,7 +211,7 @@ class Html_2_Md
 	 */
 	private function _clipHead()
 	{
-		$head = ($this->_parser) ? $this->doc->getElementsByTagName('head')->item(0) : $this->doc->find('head', 0)->outertext;
+		$head = ($this->_parser) ? $this->doc->getElementsByTagName('head')->item(0) : $this->doc->find('head', 0);
 		if ($head !== null)
 		{
 			if ($this->_parser)
@@ -254,7 +256,9 @@ class Html_2_Md
 
 		// Remove any "bonus" tags
 		if ($this->strip_tags)
+		{
 			$this->markdown = strip_tags($this->markdown);
+		}
 
 		// Replace content that we "hide" from the XML parsers
 		$this->markdown = strtr($this->markdown, array(
@@ -282,9 +286,13 @@ class Html_2_Md
 	private function _returnBodyText($text)
 	{
 		if (preg_match('~<body>(.*)</body>~su', $text, $body))
+		{
 			return $body[1];
+		}
 		elseif (preg_match('~<html>(.*)</html>~su', $text, $body))
+		{
 			return $body[1];
+		}
 
 		return $text;
 	}
@@ -304,12 +312,16 @@ class Html_2_Md
 		while ($parent)
 		{
 			if ($parent === null)
+			{
 				return false;
+			}
 
 			// Anywhere nested inside a code block we don't render tags
 			$tag = $parser ? $parent->nodeName : $parent->nodeName();
 			if ($tag === 'code')
+			{
 				return true;
+			}
 
 			// Back out another level, until we are done
 			$parent = $parser ? $parent->parentNode : $parent->parentNode();
@@ -337,7 +349,9 @@ class Html_2_Md
 			// Anywhere nested inside a list we need to get the depth
 			$tag = $parser ? $parent->nodeName : $parent->nodeName();
 			if (in_array($tag, $inlist))
+			{
 				$depth++;
+			}
 
 			// Back out another level
 			$parent = $parser ? $parent->parentNode : $parent->parentNode();
@@ -354,7 +368,9 @@ class Html_2_Md
 	private function _convert_childNodes($node)
 	{
 		if (self::_has_parent_code($node, $this->_parser))
+		{
 			return;
+		}
 
 		// Keep traversing till we are at the base of this node
 		if ($node->hasChildNodes())
@@ -449,7 +465,9 @@ class Html_2_Md
 					$markdown = $this->_escape_text($markdown);
 				}
 				else
+				{
 					$markdown = rtrim($this->_get_value($node)) . $this->line_break;
+				}
 				break;
 			case 'pre':
 				$markdown = $this->_get_value($node) . $this->line_break;
@@ -457,7 +475,9 @@ class Html_2_Md
 			case 'div':
 				$markdown = $this->line_end . $this->_get_value($node) . $this->line_end;
 				if (!$node->hasChildNodes())
+				{
 					$markdown = $this->_escape_text($markdown);
+				}
 				break;
 			//case '#text':
 			//  $markdown = $this->_escape_text($this->_get_value($node));
@@ -498,7 +518,9 @@ class Html_2_Md
 				$node->parentNode->replaceChild($markdown_node, $node);
 			}
 			else
+			{
 				$node->outertext = $markdown;
+			}
 		}
 	}
 
@@ -517,9 +539,13 @@ class Html_2_Md
 		$value = $this->_get_value($node);
 
 		if (!empty($title))
+		{
 			$markdown = '*[' . $value . ']: ' . $title . $this->line_break;
+		}
 		else
+		{
 			$markdown = '';
+		}
 
 		return $markdown;
 	}
@@ -544,15 +570,23 @@ class Html_2_Md
 
 		// Provide a more compact [name] if none is given
 		if ($value == $node->getAttribute('href') || empty($value))
+		{
 			$value = empty($title) ? $txt['link'] : $title;
+		}
 
 		// Special processing just for our own footnotes
 		if ($class === 'target' || $class === 'footnote_return')
+		{
 			$markdown = $value;
+		}
 		elseif (!empty($title))
+		{
 			$markdown = '[' . $value . '](' . $href . ' "' . $title . '")';
+		}
 		else
+		{
 			$markdown = '[' . $value . '](' . $href . ')';
+		}
 
 		// Some links can be very long and if we wrap them they break
 		$this->_check_link_lenght($markdown);
@@ -582,7 +616,9 @@ class Html_2_Md
 
 		// Each line gets a '> ' in front of it, just like email quotes really
 		foreach ($lines as $line)
+		{
 			$markdown .= '> ' . ltrim($line, "\t") . $this->line_end;
+		}
 
 		$markdown .= $this->line_end;
 
@@ -610,7 +646,9 @@ class Html_2_Md
 		// If there are html tags in this code block, we need to disable strip tags
 		// This is NOT the ideal way to handle this, needs something along the lines of preparse and unpreparse.
 		if ($this->strip_tags && preg_match('~<[^<]+>~', $value))
+		{
 			$this->strip_tags = false;
+		}
 
 		// Get the number of lines of code that we have
 		$lines = preg_split('~\r\n|\r|\n~', $value);
@@ -624,9 +662,13 @@ class Html_2_Md
 
 			// Remove any leading and trailing blank lines
 			if (empty($first_line))
+			{
 				array_shift($lines);
+			}
 			if (empty($last_line))
+			{
 				array_pop($lines);
+			}
 
 			// Convert what remains
 			$markdown = '';
@@ -641,7 +683,9 @@ class Html_2_Md
 
 			// The parser will encode, but we don't want that for our code block
 			if ($this->_parser)
+			{
 				$markdown = html_entity_decode($markdown, ENT_QUOTES, 'UTF-8');
+			}
 		}
 		// Single line, back tick and move on
 		else
@@ -652,12 +696,16 @@ class Html_2_Md
 			{
 				// If the ticks were at the start/end of the word space it off
 				if ($lines[0][0] == '`' || substr($lines[0], -1) == '`')
+				{
 					$lines[0] = ' ' . $lines[0] . ' ';
+				}
 
 				$markdown = $ticks . ($this->_parser ? html_entity_decode($lines[0], ENT_QUOTES, 'UTF-8') : $lines[0]) . $ticks;
 			}
 			else
+			{
 				$markdown = '`' . ($this->_parser ? html_entity_decode($lines[0], ENT_QUOTES, 'UTF-8') : $lines[0]) . '`';
+			}
 		}
 
 		return $markdown;
@@ -689,7 +737,9 @@ class Html_2_Md
 			$markdown = $content . $this->line_end . str_repeat($underline, $length) . $this->line_break;
 		}
 		else
+		{
 			$markdown = str_repeat('#', $level) . ' ' . $content . $this->line_break;
+		}
 
 		return $markdown;
 	}
@@ -710,9 +760,16 @@ class Html_2_Md
 		$title = $node->getAttribute('title');
 
 		if (!empty($title))
+		{
 			$markdown = '![' . $alt . '](' . $src . ' "' . $title . '")';
+		}
 		else
+		{
 			$markdown = '![' . $alt . '](' . $src . ')';
+		}
+
+		// Adjust width if needed to maintain the image
+		$this->_check_link_lenght($markdown);
 
 		// Adjust width if needed to maintain the image
 		$this->_check_link_lenght($markdown);
@@ -739,7 +796,9 @@ class Html_2_Md
 
 		// Unordered lists get a simple bullet
 		if ($list_type === 'ul')
+		{
 			$markdown = str_repeat("\t", $depth) . '* ' . $value;
+		}
 		// Ordered lists need a number
 		else
 		{
@@ -762,7 +821,9 @@ class Html_2_Md
 	{
 		$table_heading = $node->getElementsByTagName('th');
 		if ($this->_get_item($table_heading, 0) === null)
+		{
 			return '';
+		}
 
 		$th_parent = ($table_heading) ? ($this->_parser ? $this->_get_item($table_heading, 0)->parentNode->nodeName : $this->_get_item($table_heading, 0)->parentNode()->nodeName()) : false;
 
@@ -813,7 +874,9 @@ class Html_2_Md
 
 					// Keep track of the longest col cell as we go
 					if ($width[$row][$col] > $max[$col])
+					{
 						$max[$col] = $width[$row][$col];
+					}
 				}
 			}
 
@@ -825,7 +888,9 @@ class Html_2_Md
 				{
 					// Build the header row once
 					if ($row === 0)
+					{
 						$header[] = str_repeat('-', $max[$col]);
+					}
 
 					// Build the data for each col, align/pad as needed
 					$temp[] = $this->_align_row_content($align[$row][$col], $width[$row][$col], $value[$row][$col], $max[$col]);
@@ -836,7 +901,9 @@ class Html_2_Md
 
 				// Stuff in the header after the th row
 				if ($row === 0)
+				{
 					$rows[] = '| ' . implode(' | ', $header) . ' | ';
+				}
 			}
 
 			// Adjust the word wrapping since this has a table, will get mussed by email anyway
@@ -852,13 +919,18 @@ class Html_2_Md
 	 *
 	 * @param object $node
 	 * @param int $item
+	 * @return object
 	 */
 	private function _get_item($node, $item)
 	{
 		if ($this->_parser)
+		{
 			return $node->item($item);
+		}
 		else
+		{
 			return $node[$item];
+		}
 	}
 
 	/**
@@ -870,9 +942,13 @@ class Html_2_Md
 	private function _get_length($node)
 	{
 		if ($this->_parser)
+		{
 			return $node->length;
+		}
 		else
+		{
 			return count($node);
+		}
 	}
 
 	/**
@@ -884,12 +960,18 @@ class Html_2_Md
 	private function _get_value($node)
 	{
 		if ($node === null)
+		{
 			return '';
+		}
 
 		if ($this->_parser)
+		{
 			return $node->nodeValue;
+		}
 		else
+		{
 			return html_entity_decode(htmlspecialchars_decode($node->innertext, ENT_QUOTES), ENT_QUOTES, 'UTF-8');
+		}
 	}
 
 	/**
@@ -901,12 +983,18 @@ class Html_2_Md
 	private function _get_name($node)
 	{
 		if ($node === null)
+		{
 			return '';
+		}
 
 		if ($this->_parser)
+		{
 			return $node->nodeName;
+		}
 		else
+		{
 			return $node->nodeName();
+		}
 	}
 
 	/**
@@ -930,7 +1018,9 @@ class Html_2_Md
 		{
 			$current_node = $this->_parser ? $list_node->childNodes->item($i) : $list_node->childNodes($i);
 			if ($current_node === $node)
+			{
 				$position = $i + 1;
+			}
 		}
 
 		return $position;
@@ -987,7 +1077,9 @@ class Html_2_Md
 			return preg_replace('@^<' . $tag . '[^>]*>|</' . $tag . '>$@', '', $html);
 		}
 		else
+		{
 			return $node->innertext;
+		}
 	}
 
 	/**
@@ -1001,7 +1093,9 @@ class Html_2_Md
 		if ($this->_parser)
 		{
 			if (version_compare(PHP_VERSION, '5.3.6') >= 0)
+			{
 				return htmlspecialchars_decode($this->doc->saveHTML($node));
+			}
 			else
 			{
 				// @todo remove when 5.3.6 min
@@ -1014,11 +1108,14 @@ class Html_2_Md
 
 				// Clean it up
 				$html = rtrim($html, "\n");
+
 				return html_entity_decode(htmlspecialchars_decode($html, ENT_QUOTES), ENT_QUOTES, 'UTF-8');
 			}
 		}
 		else
+		{
 			return $node->outertext;
+		}
 	}
 
 	/**
@@ -1034,7 +1131,9 @@ class Html_2_Md
 	{
 		// Search and replace ...
 		foreach ($this->_textEscapeRegex as $regex => $replacement)
+		{
 			$value = preg_replace('~' . $regex . '~', $replacement, $value);
+		}
 
 		return $value;
 	}
@@ -1054,7 +1153,9 @@ class Html_2_Md
 
 		// Inside of a pre, we don't do anything
 		if ($code_parent === 'pre')
+		{
 			return $value;
+		}
 
 		// If we have backticks in code, then we back tick the ticks
 		// e.g. <code>`bla`</code> will become `` `bla` `` so markdown will deal with it properly
@@ -1069,7 +1170,9 @@ class Html_2_Md
 			while (true)
 			{
 				if (!in_array($ticks, $matches[0]))
+				{
 					break;
+				}
 				$ticks .= '`';
 			}
 		}
@@ -1082,7 +1185,6 @@ class Html_2_Md
 	 *
 	 * @param string $markdown
 	 * @param bool|int $buffer
-	 * @return int
 	 */
 	private function _check_link_lenght($markdown, $buffer = false)
 	{
@@ -1092,6 +1194,30 @@ class Html_2_Md
 		{
 			$this->body_width = $line_strlen;
 		}
+	}
+
+	/**
+	 * Helper function to find and wrap plain text links in MD format
+	 */
+	private function _convert_plaintxt_links()
+	{
+		$this->markdown = preg_replace_callback('/[^\(\/\]]((https?):\/\/|www\.)[-\p{L}0-9+&@#\/%?=~_|!:,.;]*[\p{L}0-9+&@#\/%=~_|]/iu', array($this, '_plaintxt_callback'), $this->markdown);
+	}
+
+	/**
+	 * Callback function used by _convert_plaintxt_links for plain link to MD
+	 *
+	 * @param string[] $matches
+	 * @return string
+	 */
+	private function _plaintxt_callback($matches)
+	{
+		global $txt;
+
+		$replacement = $this->line_end . '[' . $txt['link'] . '](' . trim($matches[0]) . ')';
+		$this->_check_link_lenght($replacement);
+
+		return $replacement;
 	}
 
 	/**

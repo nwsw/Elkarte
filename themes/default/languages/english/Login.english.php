@@ -1,9 +1,13 @@
 <?php
-// Version: 1.0; Login
+// Version: 1.1; Login
 
 // Registration agreement page.
 $txt['registration_agreement'] = 'Registration Agreement';
+$txt['registration_privacy_policy'] = 'Privacy Policy';
 $txt['agreement_agree'] = 'I accept the terms of the agreement.';
+$txt['agreement_no_agree'] = 'I do not accept the terms of the agreement.';
+$txt['policy_agree'] = 'I accept the terms of the privacy policy.';
+$txt['policy_no_agree'] = 'I do not accept the terms of the privacy policy.';
 $txt['agreement_agree_coppa_above'] = 'I accept the terms of the agreement and I am at least %1$d years old.';
 $txt['agreement_agree_coppa_below'] = 'I accept the terms of the agreement and I am younger than %1$d years old.';
 $txt['agree_coppa_above'] = 'I am at least %1$d years old.';
@@ -28,6 +32,9 @@ $txt['only_members_can_access'] = 'Only registered members are allowed to access
 $txt['login_below'] = 'Please login below.';
 $txt['login_below_or_register'] = 'Please login below or <a href="%1$s">register an account</a> with %2$s';
 $txt['checkbox_agreement'] = 'I accept the registration agreement';
+$txt['checkbox_privacypol'] = 'I accept the privacy policy';
+$txt['confirm_request_accept_agreement'] = 'Are you sure you want to force all members to accept the agreement?';
+$txt['confirm_request_accept_privacy_policy'] = 'Are you sure you want to force all members to accept the privacy policy?';
 
 $txt['login_hash_error'] = 'Password security has recently been upgraded.<br />Please enter your password again.';
 
@@ -61,6 +68,7 @@ $txt['in_maintain_mode'] = 'This board is in Maintenance Mode.';
 // These two are used as a javascript alert; please use international characters directly, not as entities.
 $txt['register_agree'] = 'Please read and accept the agreement before registering.';
 $txt['register_passwords_differ_js'] = 'The two passwords you entered are not the same!';
+$txt['register_did_you'] = 'Did you mean';
 
 $txt['approval_after_registration'] = 'Thank you for registering. The admin must approve your registration before you may begin to use your account, you will receive an email shortly advising you of the admins decision.';
 
@@ -74,7 +82,10 @@ $txt['setting_registration_standard'] = 'Immediate Registration';
 $txt['setting_registration_activate'] = 'Email Activation';
 $txt['setting_registration_approval'] = 'Admin Approval';
 $txt['setting_notify_new_registration'] = 'Notify administrators when a new member joins';
+$txt['setting_force_accept_agreement'] = 'Force members to accept the registration agreement when changed';
+$txt['force_accept_privacy_policy'] = 'Force members to accept the privacy policy when changed';
 $txt['setting_send_welcomeEmail'] = 'Send welcome email to new members';
+$txt['setting_show_DisplayNameOnRegistration'] = 'Allow users to enter their screen name';
 
 $txt['setting_coppaAge'] = 'Age below which to apply registration restrictions';
 $txt['setting_coppaAge_desc'] = '(Set to 0 to disable)';
@@ -137,10 +148,12 @@ $txt['authenticate_label'] = 'Authentication Method';
 $txt['authenticate_password'] = 'Password';
 $txt['authenticate_openid'] = 'OpenID';
 $txt['authenticate_openid_url'] = 'OpenID Authentication URL';
+$txt['otp_required'] = 'A Time-based One-time Password is required in order to log in!';
+$txt['disable_otp'] = 'Disable two factor authentication.';
 
 // Contact form
 $txt['admin_contact_form'] = 'Contact the admins';
 $txt['contact_your_message'] = 'Your message';
 $txt['errors_contact_form'] = 'The following errors occurred while processing your contact request';
 $txt['contact_subject'] = 'A guest has sent you a message';
-$txt['contact_thankyou'] = 'Thank you for your message, someone will contact you as soon as possible.';
+$txt['contact_thankyou'] = 'Thank you for your message. Someone will contact you as soon as possible.';
