@@ -815,62 +815,6 @@ function cdata_parse($data, $ns = '')
  */
 function dumpTags($data, $i, $tag = null, $xml_format = 'rss')
 {
-<<<<<<< HEAD
-	// For every array in the data...
-	foreach ($data as $key => $val)
-	{
-		// Skip it, it's been set to null.
-		if ($val === null)
-			continue;
-
-		// If a tag was passed, use it instead of the key.
-		$key = isset($tag) ? $tag : $key;
-
-		// First let's indent!
-		echo "\n", str_repeat("\t", $i);
-
-		// Grr, I hate kludges... almost worth doing it properly, here, but not quite.
-		if ($xml_format == 'atom' && $key == 'link')
-		{
-			echo '<link rel="alternate" type="text/html" href="', fix_possible_url($val), '" />';
-			continue;
-		}
-
-		// If it's empty/0/nothing simply output an empty tag.
-		if ($val == '')
-			echo '<', $key, ' />';
-		elseif ($xml_format == 'atom' && $key == 'category')
-			echo '<', $key, ' term="', $val, '" />';
-		else
-		{
-			// Beginning tag.
-			if ($xml_format == 'rdf' && $key == 'item' && isset($val['link']))
-			{
-				echo '<', $key, ' rdf:about="', fix_possible_url($val['link']), '">';
-				echo "\n", str_repeat("\t", $i + 1);
-				echo '<dc:format>text/html</dc:format>';
-			}
-			elseif ($xml_format == 'atom' && $key == 'summary')
-				echo '<', $key, ' type="html">';
-			else
-				echo '<', $key, '>';
-
-			if (is_array($val))
-			{
-				// An array.  Dump it, and then indent the tag.
-				dumpTags($val, $i + 1, null, $xml_format);
-				echo "\n", str_repeat("\t", $i), '</', $key, '>';
-			}
-			// A string with returns in it.... show this as a multiline element.
-			elseif (strpos($val, "\n") !== false || strpos($val, '<br />') !== false)
-				echo "\n", fix_possible_url($val), "\n", str_repeat("\t", $i), '</', $key, '>';
-			// A simple string.
-			else
-				echo fix_possible_url($val), '</', $key, '>';
-		}
-	}
-=======
 	loadTemplate('Xml');
 	template_xml_news($data, $i, $tag, $xml_format);
->>>>>>> master
 }
