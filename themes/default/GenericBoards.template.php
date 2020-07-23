@@ -117,7 +117,7 @@ function template_list_boards(array $boards, $id)
 		// No new posts at all! The agony!!
 		elseif (empty($context['user']['is_logged']))
 			echo '
-							<span class="board_icon on_board" title="Open"></span>';
+							<span class="board_icon i-board-new" title="Open"></span>';
 		else
 			echo '
 							<span class="board_icon i-board-off" title="', $txt['old_posts'], '"></span>';
