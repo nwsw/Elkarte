@@ -365,7 +365,9 @@ final class Request
 		global $boardurl, $scripturl;
 
 		// Makes it easier to refer to things this way.
-		$scripturl = $boardurl . '/index.php';
+		//$scripturl = $boardurl . '/index.php';
+		// nwsw--->no need for index.php reference
+		$scripturl = $boardurl . '/';
 		$this->_scripturl = $scripturl;
 
 		// Live to die another day
