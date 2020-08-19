@@ -624,7 +624,7 @@ function loadMessageRequest($msg_selects, $msg_tables, $msg_parameters, $optiona
 			' . (!empty($msg_tables) ? implode("\n\t\t\t", $msg_tables) : '') . '
 		WHERE m.id_msg IN ({array_int:message_list})
 			' . (!empty($optional['additional_conditions']) ? $optional['additional_conditions'] : '') . '
-		ORDER BY m.id_msg',
+		ORDER BY m.id_msg' . (empty($optional['view_newest_first']) ? '' : ' DESC'),
 		$msg_parameters
 	);
 

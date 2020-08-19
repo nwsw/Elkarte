@@ -260,7 +260,7 @@ class Display_Controller extends Action_Controller
 				{
 					// Find the number of messages posted before said time...
 					$context['start_from'] = countNewPosts($topic, $topicinfo, $timestamp);
-					$this->_start = $context['start_from'];
+					$this->_start = empty($options['view_newest_first']) ? $context['start_from'] : $total_visible_posts - $context['start_from'] - 1;
 				}
 			}
 			// Link to a message...
@@ -278,7 +278,7 @@ class Display_Controller extends Action_Controller
 				}
 
 				// We need to reverse the start as well in this case.
-				$this->_start = $context['start_from'];
+				$this->_start = empty($options['view_newest_first']) ? $context['start_from'] : $total_visible_posts - $context['start_from'] - 1;
 			}
 		}
 
@@ -387,7 +387,7 @@ class Display_Controller extends Action_Controller
 		$context['response_prefix'] = response_prefix();
 
 		// Calculate the fastest way to get the messages!
-		$ascending = true;
+		$ascending = empty($options['view_newest_first']);
 		$start = $this->_start;
 		$limit = $context['messages_per_page'];
 		$firstIndex = 0;
@@ -507,7 +507,10 @@ class Display_Controller extends Action_Controller
 
 			// Since the anchor information is needed on the top of the page we load these variables beforehand.
 			$context['first_message'] = isset($messages[$firstIndex]) ? $messages[$firstIndex] : $messages[0];
-			$context['first_new_message'] = isset($context['start_from']) && $this->_start == $context['start_from'];
+			if (empty($options['view_newest_first']))
+				$context['first_new_message'] = isset($context['start_from']) && $this->_start == $context['start_from'];
+			else
+				$context['first_new_message'] = isset($context['start_from']) && $this->_start == $topicinfo['num_replies'] - $context['start_from'];
 		}
 		else
 		{
