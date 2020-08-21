@@ -418,15 +418,8 @@ function template_body_below()
 	// Footer is full-width. Wrapper inside automatically matches admin width setting.
 	echo '
 	<footer id="footer_section"><a id="bot"></a>
-		<div class="wrapper">
-			<ul>
-				<li class="copyright">',
-					theme_copyright(), '
-				</li>',
-				!empty($context['newsfeed_urls']['rss']) ? '<li>
-					<a id="button_rss" href="' . $context['newsfeed_urls']['rss'] . '" class="rssfeeds new_win"><i class="icon icon-margin i-rss icon-big"><s>' . $txt['rss'] . '</s></i></a>
-				</li>' : '',
-			'</ul>';
+		<div class="wrapper">';
+	call_integration_hook('integrate_nwswForumFooter');
 
 	// Show the load time?
 	if ($context['show_load_time'])

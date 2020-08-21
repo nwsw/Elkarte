@@ -331,6 +331,7 @@ class Display_Controller extends Action_Controller
 		// Construct the page index, allowing for the .START method...
 		$context['page_index'] = constructPageIndex($scripturl . '?topic=' . $topic . '.%1$d', $this->_start, $total_visible_posts, $context['messages_per_page'], true, array('all' => $can_show_all, 'all_selected' => isset($this->_req->query->all)));
 		$context['start'] = $this->_start;
+		$context['total_visible_posts'] = $total_visible_posts;
 
 		// This is information about which page is current, and which page we're on - in case you don't like
 		// the constructed page index. (again, wireless..)
@@ -772,7 +773,7 @@ class Display_Controller extends Action_Controller
 	 */
 	public function prepareDisplayContext_callback($reset = false)
 	{
-		global $settings, $txt, $modSettings, $scripturl, $user_info;
+		global $settings, $txt, $modSettings, $scripturl, $user_info, $options;
 		global $memberContext, $context, $messages_request, $topic;
 		static $counter = null;
 		static $signature_shown = null;
