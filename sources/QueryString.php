@@ -233,8 +233,6 @@ function cleanXml($string)
  */
 function JavaScriptEscape($string)
 {
-	global $scripturl;
-
 	return '\'' . strtr($string, array(
 		"\r" => '',
 		"\n" => '\\n',
@@ -245,7 +243,6 @@ function JavaScriptEscape($string)
 		'<script' => '<scri\'+\'pt',
 		'<body>' => '<bo\'+\'dy>',
 		'<a href' => '<a hr\'+\'ef',
-		$scripturl => '\' + elk_scripturl + \'',
 	)) . '\'';
 }
 
