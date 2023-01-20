@@ -10,7 +10,7 @@ class Dlcode_Controller extends Action_Controller
 		
 		// Make sure some code block was requested!
 		if (empty($_REQUEST['topic']) || empty($_REQUEST['msg']) || empty($_REQUEST['block']) || !is_numeric($_REQUEST['block']))
-			fatal_lang_error('no_access', false);
+			throw new Elk_Exception('no_access', false);
 
 		require_once(SUBSDIR . '/Post.subs.php');
 
@@ -43,7 +43,7 @@ class Dlcode_Controller extends Action_Controller
 
 		$db->free_result($request);
 
-		if (!$msg) fatal_lang_error('no_access', false);
+		if (!$msg) throw new Elk_Exception('no_access', false);
 
 		if (!$time_modified) $time_modified = $time_posted;
 
@@ -51,7 +51,7 @@ class Dlcode_Controller extends Action_Controller
 
 		$msg_parts = preg_split('~(\[/code\]|\[code(?:=[^\]]+)?\])~i', $msg, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-		if ((4*$real_codeblocknum) > count($msg_parts)) fatal_lang_error('no_access', false);
+		if ((4*$real_codeblocknum) > count($msg_parts)) throw new Elk_Exception('no_access', false);
 
 		$real_codeblock = trim(html_entity_decode($msg_parts[(4*$real_codeblocknum)-2],ENT_QUOTES,'UTF-8'));
 		$real_filetype = strtolower(substr($msg_parts[(4*$real_codeblocknum)-3],6,-1));

@@ -1227,7 +1227,7 @@ Adjusts display of wording and selections to one line.
 /* Admin menu icons as sprites
 ------------------------------------------------- */
 .linklevel2 > img {
-	background-image: url(../images/admin/admin_sprite.png);
+	background-image: url(../../images/admin/admin_sprite.png);
 	background-repeat: no-repeat;
 }
 
