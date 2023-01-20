@@ -297,7 +297,7 @@ function loadUserSettings()
 			$_SESSION['id_msg_last_visit'] = $user_settings['id_msg_last_visit'];
 
 			// If it was *at least* five hours ago...
-			if ($visitOpt['poster_time'] < time() - 5 * 3600)
+			if ($visitOpt === false || $visitOpt['poster_time'] < time() - 5 * 3600)
 			{
 				require_once(SUBSDIR . '/Members.subs.php');
 				updateMemberData($id_member, array('id_msg_last_visit' => (int) $modSettings['maxMsgID'], 'last_login' => time(), 'member_ip' => $req->client_ip(), 'member_ip2' => $req->ban_ip()));
@@ -2034,7 +2034,7 @@ function loadCSSFile($filenames, $params = array(), $id = '')
 	if (in_array('admin.css', $filenames))
 		$filenames[] = $context['theme_variant'] . '/admin' . $context['theme_variant'] . '.css';
 
-	$params['subdir'] = 'css';
+	$params['subdir'] = isset($params['subdir']) ? $params['subdir'] : 'css';
 	$params['extension'] = 'css';
 	$params['index_name'] = 'css_files';
 	$params['debug_index'] = 'sheets';
@@ -2071,7 +2071,7 @@ function loadJavascriptFile($filenames, $params = array(), $id = '')
 	if (empty($filenames))
 		return;
 
-	$params['subdir'] = 'scripts';
+	$params['subdir'] = isset($params['subdir']) ? $params['subdir'] : 'scripts';
 	$params['extension'] = 'js';
 	$params['index_name'] = 'js_files';
 	$params['debug_index'] = 'javascript';

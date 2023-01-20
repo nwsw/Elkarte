@@ -24,6 +24,7 @@ $txt['delete_installer'] = 'Click here to try to delete the install directory no
 $txt['delete_installer_maybe'] = '<em>(doesn\'t work on all servers.)</em>';
 $txt['go_to_your_forum'] = 'Now you can see <a href="%1$s">your newly installed forum</a> and begin to use it.  You should first make sure you are logged in, after which you will be able to access the administration center.';
 $txt['good_luck'] = 'Thanks for installing ElkArte!';
+$txt['try_again'] = 'Click here to try again.';
 
 $txt['install_welcome'] = 'Welcome';
 $txt['install_welcome_desc'] = 'Welcome to ElkArte. This script will guide you through the process for installing %1$s. We\'ll gather a few details about your forum over the next few steps, and after a couple of minutes your forum will be ready for use.';
@@ -164,6 +165,7 @@ $txt['error_php_too_low'] = 'Warning!  You do not appear to have a version of PH
 $txt['error_missing_files'] = 'Unable to find crucial installation files in the directory of this script!<br /><br />Please make sure you uploaded the entire installation package, including the sql file, and then try again.';
 $txt['error_session_save_path'] = 'Please inform your host that the <strong>session.save_path specified in php.ini</strong> is not valid!  It needs to be changed to a directory that <strong>exists</strong>, and is <strong>writable</strong> by the user PHP is running under.<br />';
 $txt['error_windows_chmod'] = 'You\'re on a windows server, and some crucial files are not writable.  Please ask your host to give <strong>write permissions</strong> to the user PHP is running under for the files in your ElkArte installation.  The following files or directories need to be writable:';
+$txt['settings_error'] = 'Your settings could not be saved to Settings.php, the file is not writable.';
 $txt['error_ftp_no_connect'] = 'Unable to connect to FTP server with this combination of details.';
 $txt['error_db_file'] = 'Cannot find database source script! Please check file %1$s is within your forum source directory.';
 $txt['error_db_connect'] = 'Cannot connect to the database server with the supplied data.<br /><br />If you are not sure about what to type in, please contact your host.';
@@ -225,3 +227,4 @@ $txt['upgrade_error_script_js'] = 'The upgrade script cannot find script.js or i
 
 $txt['upgrade_warning_lots_data'] = 'This upgrade script has detected that your forum contains a lot of data which needs upgrading. This process may take quite some time depending on your server and forum size, and for very large forums (~300,000 messages) may take several hours to complete.';
 $txt['upgrade_warning_out_of_date'] = 'This upgrade script is out of date! The current version of ElkArte is <em id="elkVersion">??</em> but this upgrade script is for <em id="installedVersion">%1$s</em>.<br /><br />It is recommended that you visit the <a href="https://www.elkarte.net/" target="_blank" class="new_win">ElkArte Community</a> website to ensure you are upgrading to the latest version.';
+$txt['upgrade_warning_already_done'] = 'You are already running <em>ElkArte %1$s</em> no upgrade is available!  You must <strong>delete</strong> the install directory and then proceed to <a href="%2$s">your forum</a>';

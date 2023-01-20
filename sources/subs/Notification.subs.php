@@ -7,7 +7,7 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * @version 1.1
+ * @version 1.1.7
  *
  */
 
@@ -1037,8 +1037,8 @@ function getNotifierToken($memID, $memEmail, $memSalt, $area, $extra)
 	if (empty($modSettings['unsubscribe_site_salt']))
 	{
 		// extra 10 digits of salt
-		$modSettings['unsubscribe_site_salt'] = $tokenizer->generate_hash();
-		updateSettings(array('unsubscribe_site_salt' => $modSettings['unsubscribe_site_salt']));
+		$unsubscribe_site_salt = $tokenizer->generate_hash();
+		updateSettings(array('unsubscribe_site_salt' => $unsubscribe_site_salt));
 	}
 
 	// Add member salt + site salt to the otherwise deterministic data

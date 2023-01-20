@@ -508,7 +508,7 @@ function registerMember(&$regOptions, $ErrorContext = 'register')
 	validateUsername(0, $regOptions['username'], $ErrorContext, !empty($regOptions['check_reserved_name']));
 
 	// Generate a validation code if it's supposed to be emailed.
-	$validation_code = $regOptions['require'] === 'activation' ? generateValidationCode(14) : '';
+	$validation_code = generateValidationCode(14);
 
 	// Does the first password match the second?
 	if ($regOptions['password'] != $regOptions['password_check'] && $regOptions['auth_method'] == 'password')
@@ -1550,7 +1550,8 @@ function prepareMembersByQuery($query, &$query_params, $only_active = true)
 			else
 			{
 				$query_parts['and'][] = isset($allowed_conditions[$query_conditions]) ? $allowed_conditions[$query_conditions] : $query_conditions;
-			}		}
+			}
+		}
 
 		if (!empty($query_parts['or']))
 			$query_parts['and'][] = implode("\n\t\t\tOR ", $query_parts['or']);
