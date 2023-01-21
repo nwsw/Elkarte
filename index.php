@@ -17,8 +17,9 @@
  *
  */
 
-// this forum will sometimes change REMOTE_ADDR, so keep the real value here
 define('ALLOW_INSTALLER_CHECK',false);
+
+// this forum will sometimes change REMOTE_ADDR, so keep the real value here
 define('NWSW_RAW_REMOTE_ADDR', $_SERVER['REMOTE_ADDR']);
 
 // Bootstrap the system
