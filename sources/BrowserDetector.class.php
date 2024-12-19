@@ -327,12 +327,13 @@ class Browser_Detector
 		}
 		elseif ($this->_browsers['is_opera'])
 		{
-			if (preg_match('~OPR[/]([0-9][0-9]?[.])~i', $this->_ua, $match) === 1)
+			if (preg_match('~OPR[/]([0-9][0-9]?[.])~i', $this->_ua, $match) === 1) {
 				$this->_browsers['is_opera' . (int) trim($match[1])] = true;
 
-			// Since opera >= 15 wants to look like chrome, set the body to do just that
-			if (trim($match[1]) >= 15)
-				$this->_browsers['is_chrome'] = true;
+				// Since opera >= 15 wants to look like chrome, set the body to do just that
+				if (trim($match[1]) >= 15)
+					$this->_browsers['is_chrome'] = true;
+			}
 		}
 	}
 
